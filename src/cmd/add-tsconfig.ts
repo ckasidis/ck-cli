@@ -1,13 +1,13 @@
-import path from 'path'
 import fs from 'fs-extra'
-import { createPackage } from './create-package'
+import path from 'path'
+import { newPackage } from '../helpers/new-pkg'
 
-export type CreateTSConfigOptions = {
+export type AddTSConfigOptions = {
   dir: string
-  pkgName: string
+  workspaceName: string
 }
 
-export const createTSConfig = ({ dir, pkgName }: CreateTSConfigOptions) => {
+export const addTSConfig = ({ dir, workspaceName }: AddTSConfigOptions) => {
   const resolvedPath = path.resolve(dir)
 
   if (!fs.existsSync(resolvedPath)) {
@@ -18,8 +18,8 @@ export const createTSConfig = ({ dir, pkgName }: CreateTSConfigOptions) => {
   const copyDest = resolvedPath
   fs.copySync(copySource, copyDest)
 
-  createPackage({
+  newPackage({
     dir: resolvedPath,
-    pkgName,
+    pkgName: `@${workspaceName}/tsconfig`,
   })
 }

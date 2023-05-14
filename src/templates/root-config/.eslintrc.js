@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['@PKG_NAME/eslint-config'],
+  extends: ['@WORKSPACE_NAME/eslint-config'],
   settings: {
     next: {
       rootDir: ['apps/*/'],

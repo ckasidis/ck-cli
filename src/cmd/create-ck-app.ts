@@ -1,42 +1,48 @@
 import path from 'path'
-import { createTSConfig } from './create-tsconfig'
-import { createWorkspace } from './create-workspace'
-import { createPrettierConfig } from './create-prettier-config'
-import { createESLintConfig } from './create-eslint-config'
-import { createTailwindConfig } from './create-tailwind-config'
-import { createRootConfig } from './create-root-config'
+import { addTSConfig } from './add-tsconfig'
+import { addWorkspace } from './add-workspace'
+import { addPrettierConfig } from './add-prettier-config'
+import { addESLintConfig } from './add-eslint-config'
+import { addTailwindConfig } from './add-tailwind-config'
+import { addRootConfig } from './add-root-config'
+import { addNextApp } from './add-next-app'
 
 export type CreateCKAppOptions = {
   dir: string
-  pkgName: string
+  workspaceName: string
 }
 
-export const createCKApp = ({ dir, pkgName }: CreateCKAppOptions) => {
-  createWorkspace({ dir })
+export const createCKApp = ({ dir, workspaceName }: CreateCKAppOptions) => {
+  addWorkspace({ dir })
 
-  createTSConfig({
+  addTSConfig({
     dir: path.join(dir, 'packages', 'tsconfig'),
-    pkgName: `@${pkgName}/tsconfig`,
+    workspaceName,
   })
 
-  createPrettierConfig({
+  addPrettierConfig({
     dir: path.join(dir, 'packages', 'prettier-config'),
-    pkgName: `@${pkgName}/prettier-config`,
+    workspaceName,
     withTailwind: true,
   })
 
-  createESLintConfig({
+  addESLintConfig({
     dir: path.join(dir, 'packages', 'eslint-config'),
-    pkgName: `@${pkgName}/eslint-config`,
+    workspaceName,
   })
 
-  createTailwindConfig({
+  addTailwindConfig({
     dir: path.join(dir, 'packages', 'tailwind-config'),
-    pkgName: `@${pkgName}/tailwind-config`,
+    workspaceName,
   })
 
-  createRootConfig({
+  addRootConfig({
     dir,
-    pkgName: pkgName,
+    workspaceName,
+  })
+
+  addNextApp({
+    dir: path.join(dir, 'apps', 'web'),
+    workspaceName,
   })
 }

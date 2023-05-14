@@ -2,7 +2,7 @@ import fs from 'fs-extra'
 import os from 'os'
 import path from 'path'
 
-export type CreatePackageConfigOptions = {
+export type NewPackageOptions = {
   dir: string
   pkgName: string
   main?: string
@@ -11,14 +11,14 @@ export type CreatePackageConfigOptions = {
   devDependencies?: Record<string, string>
 }
 
-export const createPackage = ({
+export const newPackage = ({
   dir,
   pkgName,
   main,
   scripts,
   dependencies,
   devDependencies,
-}: CreatePackageConfigOptions) => {
+}: NewPackageOptions) => {
   const resolvedPath = path.resolve(dir)
 
   if (!fs.existsSync(resolvedPath)) {

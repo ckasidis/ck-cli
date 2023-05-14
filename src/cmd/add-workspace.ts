@@ -1,11 +1,11 @@
-import path from 'path'
 import fs from 'fs-extra'
+import path from 'path'
 
-export type CreateWorkspaceOptions = {
+export type AddWorkspaceOptions = {
   dir: string
 }
 
-export const createWorkspace = ({ dir }: CreateWorkspaceOptions) => {
+export const addWorkspace = ({ dir }: AddWorkspaceOptions) => {
   const resolvedPath = path.resolve(dir)
 
   if (!fs.existsSync(resolvedPath)) {

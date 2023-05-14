@@ -1,72 +1,82 @@
 import { Command } from 'commander'
-import { createPackage } from './cmd/create-package'
-import { createPrettierConfig } from './cmd/create-prettier-config'
-import { createTailwindConfig } from './cmd/create-tailwind-config'
-import { createTSConfig } from './cmd/create-tsconfig'
+import { addPrettierConfig } from './cmd/add-prettier-config'
+import { addTailwindConfig } from './cmd/add-tailwind-config'
+import { addTSConfig } from './cmd/add-tsconfig'
 import { createCKApp } from './cmd/create-ck-app'
+import { addNextApp } from './cmd/add-next-app'
+import { addESLintConfig } from './cmd/add-eslint-config'
 
 const program = new Command()
 
 program
   .name('ck-cli')
-  .description('CLI for generating templates')
+  .description('CLI for bootstrapping Monorepos')
   .version('0.0.1')
 
 program
-  .command('ck-app')
+  .command('create-ck-app')
   .description(
     'create a new monorepos with Turborepo, Next.js, TSConfig, Prettier Config, ESLint Config, Tailwind Config, Lint-staged, Commitlint, and Husky'
   )
   .argument('<directory>', 'directory')
   .option('-n, --name <string>', 'workspace name')
   .action((dir, options) => {
-    createCKApp({ dir: dir || process.cwd(), pkgName: options.name })
+    createCKApp({ dir: dir || process.cwd(), workspaceName: options.name })
   })
 
 program
-  .command('pkg')
-  .description('create a new package.json file')
+  .command('add-next-app')
+  .description('add a new next app to workspace')
   .argument('<directory>', 'directory')
-  .option('-n, --name <string>', 'package name')
+  .option('-n, --name <string>', 'workspace name')
   .action((dir, options) => {
-    createPackage({ dir: dir || process.cwd(), pkgName: options.name })
+    addNextApp({ dir: dir || process.cwd(), workspaceName: options.name })
   })
 
 program
-  .command('tsconfig')
-  .description('create a new tsconfig package')
+  .command('add-tsconfig')
+  .description('add a new tsconfig package to workspace')
   .argument('<directory>', 'directory')
-  .option('-n, --name <string>', 'package name')
+  .option('-n, --name <string>', 'workspace name')
   .action((dir, options) => {
-    createTSConfig({
+    addTSConfig({
       dir: dir || process.cwd(),
-      pkgName: options.name,
+      workspaceName: options.name,
     })
   })
 
 program
-  .command('prettier')
-  .description('create a new prettier-config package')
+  .command('add-prettier')
+  .description('add a new prettier-config package to workspace')
   .argument('<directory>', 'directory')
-  .option('-n, --name <string>', 'package name')
-  .option('-tw, --tailwind', 'install prettier-plugin-tailwindcss')
+  .option('-n, --name <string>', 'workspace name')
+  .option('-tw, --tailwind', 'install and config prettier-plugin-tailwindcss')
   .action((dir, options) => {
-    createPrettierConfig({
+    addPrettierConfig({
       dir: dir || process.cwd(),
-      pkgName: options.name,
+      workspaceName: options.name,
       withTailwind: options.tailwind,
     })
   })
 
 program
-  .command('tailwind')
-  .description('create a new tailwind-config package')
+  .command('add-eslint')
+  .description('add a new eslint-config package to workspace')
   .argument('<directory>', 'directory')
-  .option('-n, --name <string>', 'package name')
+  .option('-n, --name <string>', 'workspace name')
   .action((dir, options) => {
-    createTailwindConfig({
+    addESLintConfig({ dir: dir || process.cwd(), workspaceName: options.name })
+  })
+
+program
+  .command('add-tailwind')
+  .description('add a new tailwind-config package to workspace')
+  .argument('<directory>', 'directory')
+  .option('-n, --name <string>', 'workspace name')
+  .action((dir, options) => {
+    addTailwindConfig({
       dir: dir || process.cwd(),
-      pkgName: options.name,
+      workspaceName: options.name,
     })
   })
 

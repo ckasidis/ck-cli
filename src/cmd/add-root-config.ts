@@ -1,16 +1,16 @@
-import path from 'path'
 import fs from 'fs-extra'
-import { createPackage } from './create-package'
+import path from 'path'
+import { newPackage } from '../helpers/new-pkg'
 import { install } from '../helpers/install'
 import { huskyInit } from '../helpers/husky-init'
 import { gitInit } from '../helpers/git-init'
 
-export type CreateRootConfigOptions = {
+export type AddRootConfigOptions = {
   dir: string
-  pkgName: string
+  workspaceName: string
 }
 
-export const createRootConfig = ({ dir, pkgName }: CreateRootConfigOptions) => {
+export const addRootConfig = ({ dir, workspaceName }: AddRootConfigOptions) => {
   const resolvedPath = path.resolve(dir)
 
   if (!fs.existsSync(resolvedPath)) {
@@ -24,18 +24,22 @@ export const createRootConfig = ({ dir, pkgName }: CreateRootConfigOptions) => {
   const rootEslintConfig = path.join(resolvedPath, '.eslintrc.js')
   fs.writeFileSync(
     rootEslintConfig,
-    fs.readFileSync(rootEslintConfig, 'utf8').replace('PKG_NAME', pkgName)
+    fs
+      .readFileSync(rootEslintConfig, 'utf8')
+      .replace('WORKSPACE_NAME', workspaceName)
   )
 
   const rootPrettierConfig = path.join(resolvedPath, '.prettierrc.js')
   fs.writeFileSync(
     rootPrettierConfig,
-    fs.readFileSync(rootPrettierConfig, 'utf8').replace('PKG_NAME', pkgName)
+    fs
+      .readFileSync(rootPrettierConfig, 'utf8')
+      .replace('WORKSPACE_NAME', workspaceName)
   )
 
-  createPackage({
+  newPackage({
     dir: resolvedPath,
-    pkgName: pkgName,
+    pkgName: workspaceName,
     scripts: {
       dev: 'turbo run dev',
       build: 'turbo run build',
@@ -47,8 +51,8 @@ export const createRootConfig = ({ dir, pkgName }: CreateRootConfigOptions) => {
       commit: 'cz',
     },
     devDependencies: {
-      [`@${pkgName}/eslint-config`]: 'workspace:*',
-      [`@${pkgName}/prettier-config`]: 'workspace:*',
+      [`@${workspaceName}/eslint-config`]: 'workspace:*',
+      [`@${workspaceName}/prettier-config`]: 'workspace:*',
     },
   })
 

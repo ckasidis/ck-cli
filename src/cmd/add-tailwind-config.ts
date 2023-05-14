@@ -1,17 +1,17 @@
-import path from 'path'
 import fs from 'fs-extra'
-import { createPackage } from './create-package'
+import path from 'path'
+import { newPackage } from '../helpers/new-pkg'
 import { install } from '../helpers/install'
 
-export type CreateTailwindConfigOptions = {
+export type AddTailwindConfigOptions = {
   dir: string
-  pkgName: string
+  workspaceName: string
 }
 
-export const createTailwindConfig = ({
+export const addTailwindConfig = ({
   dir,
-  pkgName,
-}: CreateTailwindConfigOptions) => {
+  workspaceName,
+}: AddTailwindConfigOptions) => {
   const resolvedPath = path.resolve(dir)
 
   if (!fs.existsSync(resolvedPath)) {
@@ -22,9 +22,9 @@ export const createTailwindConfig = ({
   const copyDest = resolvedPath
   fs.copySync(copySource, copyDest)
 
-  createPackage({
+  newPackage({
     dir: resolvedPath,
-    pkgName,
+    pkgName: `@${workspaceName}/tailwind-config`,
     main: './index.js',
     scripts: {
       clean: 'rimraf node_modules',

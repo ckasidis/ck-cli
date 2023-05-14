@@ -1,17 +1,17 @@
-import path from 'path'
 import fs from 'fs-extra'
-import { createPackage } from './create-package'
+import path from 'path'
+import { newPackage } from '../helpers/new-pkg'
 import { install } from '../helpers/install'
 
-export type CreateESLintConfigOptions = {
+export type AddESLintConfigOptions = {
   dir: string
-  pkgName: string
+  workspaceName: string
 }
 
-export const createESLintConfig = ({
+export const addESLintConfig = ({
   dir,
-  pkgName,
-}: CreateESLintConfigOptions) => {
+  workspaceName,
+}: AddESLintConfigOptions) => {
   const resolvedPath = path.resolve(dir)
 
   if (!fs.existsSync(resolvedPath)) {
@@ -22,9 +22,9 @@ export const createESLintConfig = ({
   const copyDest = resolvedPath
   fs.copySync(copySource, copyDest)
 
-  createPackage({
+  newPackage({
     dir: resolvedPath,
-    pkgName,
+    pkgName: `@${workspaceName}/eslint-config`,
     main: './index.js',
     scripts: {
       clean: 'rimraf node_modules',

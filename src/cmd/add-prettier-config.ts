@@ -1,19 +1,19 @@
-import path from 'path'
 import fs from 'fs-extra'
-import { CreatePackageConfigOptions, createPackage } from './create-package'
+import path from 'path'
+import { NewPackageOptions, newPackage } from '../helpers/new-pkg'
 import { install } from '../helpers/install'
 
-export type CreatePrettierConfigOptions = {
+export type AddPrettierConfigOptions = {
   dir: string
-  pkgName: string
+  workspaceName: string
   withTailwind: boolean
 }
 
-export const createPrettierConfig = ({
+export const addPrettierConfig = ({
   dir,
-  pkgName,
+  workspaceName,
   withTailwind,
-}: CreatePrettierConfigOptions) => {
+}: AddPrettierConfigOptions) => {
   const resolvedPath = path.resolve(dir)
 
   if (!fs.existsSync(resolvedPath)) {
@@ -30,14 +30,14 @@ export const createPrettierConfig = ({
   const copyDest = resolvedPath
   fs.copySync(copySource, copyDest)
 
-  const base: CreatePackageConfigOptions = {
+  const base: NewPackageOptions = {
     dir: resolvedPath,
-    pkgName,
+    pkgName: `@${workspaceName}/prettier-config`,
     main: './index.js',
   }
 
   if (withTailwind) {
-    createPackage({
+    newPackage({
       ...base,
       scripts: {
         clean: 'rimraf node_modules',
@@ -48,6 +48,6 @@ export const createPrettierConfig = ({
       devDependencies: true,
     })
   } else {
-    createPackage(base)
+    newPackage(base)
   }
 }

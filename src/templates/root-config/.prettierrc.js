@@ -1,3 +1,3 @@
-const sharedConfig = require('@PKG_NAME/prettier-config')
+const sharedConfig = require('@WORKSPACE_NAME/prettier-config')
 
 module.exports = sharedConfig
