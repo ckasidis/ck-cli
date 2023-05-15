@@ -10,9 +10,14 @@ import { addNextApp } from './add-next-app'
 export type CreateCKAppOptions = {
   dir: string
   workspaceName: string
+  withClerk?: boolean
 }
 
-export const createCKApp = ({ dir, workspaceName }: CreateCKAppOptions) => {
+export const createCKApp = ({
+  dir,
+  workspaceName,
+  withClerk,
+}: CreateCKAppOptions) => {
   addWorkspace({ dir })
 
   addTSConfig({
@@ -44,5 +49,6 @@ export const createCKApp = ({ dir, workspaceName }: CreateCKAppOptions) => {
   addNextApp({
     dir: path.join(dir, 'apps', 'web'),
     workspaceName,
+    withClerk,
   })
 }

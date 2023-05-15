@@ -20,8 +20,13 @@ program
   )
   .argument('<directory>', 'directory')
   .option('-n, --name <string>', 'workspace name')
+  .option('--clerk', 'with Clerk')
   .action((dir, options) => {
-    createCKApp({ dir: dir || process.cwd(), workspaceName: options.name })
+    createCKApp({
+      dir: dir || process.cwd(),
+      workspaceName: options.name,
+      withClerk: options.clerk,
+    })
   })
 
 program
@@ -29,8 +34,13 @@ program
   .description('add a new next app to workspace')
   .argument('<directory>', 'directory')
   .option('-n, --name <string>', 'workspace name')
+  .option('--clerk', 'with Clerk')
   .action((dir, options) => {
-    addNextApp({ dir: dir || process.cwd(), workspaceName: options.name })
+    addNextApp({
+      dir: dir || process.cwd(),
+      workspaceName: options.name,
+      withClerk: options.clerk,
+    })
   })
 
 program

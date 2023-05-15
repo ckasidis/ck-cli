@@ -6,9 +6,14 @@ import { newPackage } from '../helpers/new-pkg'
 export type AddNextAppOptions = {
   dir: string
   workspaceName: string
+  withClerk?: boolean
 }
 
-export const addNextApp = ({ dir, workspaceName }: AddNextAppOptions) => {
+export const addNextApp = ({
+  dir,
+  workspaceName,
+  withClerk,
+}: AddNextAppOptions) => {
   const resolvedPath = path.resolve(dir)
 
   if (!fs.existsSync(resolvedPath)) {
@@ -18,6 +23,17 @@ export const addNextApp = ({ dir, workspaceName }: AddNextAppOptions) => {
   const copySource = path.join(__dirname, '..', 'templates', 'next', 'base')
   const copyDest = resolvedPath
   fs.copySync(copySource, copyDest)
+
+  if (withClerk) {
+    const withClerkCopySource = path.join(
+      __dirname,
+      '..',
+      'templates',
+      'next',
+      'withClerk'
+    )
+    fs.copySync(withClerkCopySource, copyDest)
+  }
 
   const nextTailwindConfig = path.join(resolvedPath, 'tailwind.config.js')
   fs.writeFileSync(
@@ -74,4 +90,8 @@ export const addNextApp = ({ dir, workspaceName }: AddNextAppOptions) => {
       devDependencies: true,
     }
   )
+
+  if (withClerk) {
+    install(['@clerk/nextjs'], { dir: resolvedPath })
+  }
 }
