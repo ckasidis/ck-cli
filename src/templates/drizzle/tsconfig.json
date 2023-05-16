@@ -1,0 +1,5 @@
+{
+  "extends": "@WORKSPACE_NAME/tsconfig/base.json",
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

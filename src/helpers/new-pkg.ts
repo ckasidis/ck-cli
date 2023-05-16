@@ -6,6 +6,9 @@ export type NewPackageOptions = {
   dir: string
   pkgName: string
   main?: string
+  module?: string
+  types?: string
+  files?: string[]
   scripts?: Record<string, string>
   dependencies?: Record<string, string>
   devDependencies?: Record<string, string>
@@ -15,6 +18,9 @@ export const newPackage = ({
   dir,
   pkgName,
   main,
+  module,
+  types,
+  files,
   scripts,
   dependencies,
   devDependencies,
@@ -31,6 +37,9 @@ export const newPackage = ({
     license: 'MIT',
     private: true,
     ...(main ? { main } : {}),
+    ...(module ? { module } : {}),
+    ...(types ? { types } : {}),
+    ...(files ? { files } : {}),
     ...(scripts ? { scripts } : {}),
     ...(dependencies ? { dependencies } : {}),
     ...(devDependencies ? { devDependencies } : {}),

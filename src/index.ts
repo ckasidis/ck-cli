@@ -21,11 +21,13 @@ program
   .argument('<directory>', 'directory')
   .option('-n, --name <string>', 'workspace name')
   .option('--clerk', 'with Clerk')
+  .option('--drizzle', 'with Drizzle')
   .action((dir, options) => {
     createCKApp({
       dir: dir || process.cwd(),
       workspaceName: options.name,
       withClerk: options.clerk,
+      withDrizzle: options.drizzle,
     })
   })
 
