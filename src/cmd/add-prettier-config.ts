@@ -25,12 +25,12 @@ export const addPrettierConfig = ({
     '..',
     'templates',
     'prettier-config',
-    withTailwind ? 'tailwind' : 'no-tailwind'
+    withTailwind ? 'withTailwind' : 'base'
   )
   const copyDest = resolvedPath
   fs.copySync(copySource, copyDest)
 
-  const base: NewPackageOptions = {
+  const baseOptions: NewPackageOptions = {
     dir: resolvedPath,
     pkgName: `@${workspaceName}/prettier-config`,
     main: './index.js',
@@ -38,7 +38,7 @@ export const addPrettierConfig = ({
 
   if (withTailwind) {
     newPackage({
-      ...base,
+      ...baseOptions,
       scripts: {
         clean: 'rimraf node_modules',
       },
@@ -48,6 +48,6 @@ export const addPrettierConfig = ({
       devDependencies: true,
     })
   } else {
-    newPackage(base)
+    newPackage(baseOptions)
   }
 }
