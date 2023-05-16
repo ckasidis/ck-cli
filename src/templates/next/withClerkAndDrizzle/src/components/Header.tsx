@@ -7,6 +7,10 @@ const navItems: NavItemProps[] = [
     href: '/',
   },
   {
+    name: 'database',
+    href: '/database',
+  },
+  {
     name: 'profile',
     href: '/profile',
   },

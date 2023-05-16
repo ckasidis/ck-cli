@@ -46,11 +46,11 @@ export const addDrizzle = ({ dir, workspaceName }: AddDrizzleOptions) => {
     },
   })
 
-  install(['@vercel/postgres', 'drizzle-orm'], {
+  install(['@vercel/postgres', 'drizzle-orm', 'drizzle-zod', 'zod'], {
     dir: resolvedPath,
   })
 
-  install(['rimraf', 'drizzle-kit', 'tsup'], {
+  install(['rimraf', 'drizzle-kit', 'tsup', 'typescript'], {
     dir: resolvedPath,
     devDependencies: true,
   })

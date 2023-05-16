@@ -60,5 +60,6 @@ export const createCKApp = ({
     dir: path.join(dir, 'apps', 'web'),
     workspaceName,
     withClerk,
+    withDrizzle,
   })
 }
