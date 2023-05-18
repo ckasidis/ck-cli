@@ -46,7 +46,7 @@ export function huskyInit({
         'husky',
         'add',
         commitMsgHook,
-        '"pnpm exec commitlint --edit $1"',
+        'pnpm exec commitlint --edit $1',
       ],
     })
   }
@@ -54,7 +54,7 @@ export function huskyInit({
   if (withLintStaged) {
     commands.push({
       command: 'pnpm',
-      args: ['exec', 'husky', 'add', preCommitHook, '"pnpm exec lint-staged"'],
+      args: ['exec', 'husky', 'add', preCommitHook, 'pnpm exec lint-staged'],
     })
   }
 
