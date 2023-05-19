@@ -54,6 +54,8 @@ export const createCKApp = ({
   addRootConfig({
     dir,
     workspaceName,
+    withClerk,
+    withDrizzle,
   })
 
   addNextApp({

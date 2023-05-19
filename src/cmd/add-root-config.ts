@@ -8,18 +8,63 @@ import { gitInit } from '../helpers/git-init'
 export type AddRootConfigOptions = {
   dir: string
   workspaceName: string
+  withClerk?: boolean
+  withDrizzle?: boolean
 }
 
-export const addRootConfig = ({ dir, workspaceName }: AddRootConfigOptions) => {
+export const addRootConfig = ({
+  dir,
+  workspaceName,
+  withClerk,
+  withDrizzle,
+}: AddRootConfigOptions) => {
   const resolvedPath = path.resolve(dir)
 
   if (!fs.existsSync(resolvedPath)) {
     fs.mkdirSync(resolvedPath, { recursive: true })
   }
 
-  const copySource = path.join(__dirname, '..', 'templates', 'root-config')
+  const copySource = path.join(
+    __dirname,
+    '..',
+    'templates',
+    'root-config',
+    'base'
+  )
   const copyDest = resolvedPath
   fs.copySync(copySource, copyDest)
+
+  if (withClerk && withDrizzle) {
+    const withClerkAndDrizzleCopySource = path.join(
+      __dirname,
+      '..',
+      'templates',
+      'root-config',
+      'withClerkAndDrizzle'
+    )
+    const copyDest = resolvedPath
+    fs.copySync(withClerkAndDrizzleCopySource, copyDest)
+  } else if (withClerk) {
+    const withClerkCopySource = path.join(
+      __dirname,
+      '..',
+      'templates',
+      'root-config',
+      'withClerk'
+    )
+    const copyDest = resolvedPath
+    fs.copySync(withClerkCopySource, copyDest)
+  } else if (withDrizzle) {
+    const withDrizzleCopySource = path.join(
+      __dirname,
+      '..',
+      'templates',
+      'root-config',
+      'withDrizzle'
+    )
+    const copyDest = resolvedPath
+    fs.copySync(withDrizzleCopySource, copyDest)
+  }
 
   const rootEslintConfig = path.join(resolvedPath, '.eslintrc.js')
   fs.writeFileSync(

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["POSTGRES_URL", "POSTGRES_URL_NON_POOLING"],
+  "pipeline": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+    },
+    "lint": {},
+    "check-types": {},
+    "clean": {
+      "cache": false
+    }
+  }
+}
