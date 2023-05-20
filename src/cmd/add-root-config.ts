@@ -95,6 +95,11 @@ export const addRootConfig = ({
         "prettier --write '**/*.{html,css,scss,js,jsx,ts,tsx,md,mdx,json,yml,yaml,gql,graphql}'",
       commit: 'cz',
     },
+    config: {
+      commitizen: {
+        path: '@commitlint/cz-commitlint',
+      },
+    },
     devDependencies: {
       [`@${workspaceName}/eslint-config`]: 'workspace:*',
       [`@${workspaceName}/prettier-config`]: 'workspace:*',

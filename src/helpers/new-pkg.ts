@@ -12,6 +12,7 @@ export type NewPackageOptions = {
   scripts?: Record<string, string>
   dependencies?: Record<string, string>
   devDependencies?: Record<string, string>
+  config?: any
 }
 
 export const newPackage = ({
@@ -24,6 +25,7 @@ export const newPackage = ({
   scripts,
   dependencies,
   devDependencies,
+  config,
 }: NewPackageOptions) => {
   const resolvedPath = path.resolve(dir)
 
@@ -41,6 +43,7 @@ export const newPackage = ({
     ...(types ? { types } : {}),
     ...(files ? { files } : {}),
     ...(scripts ? { scripts } : {}),
+    ...(config ? { config } : {}),
     ...(dependencies ? { dependencies } : {}),
     ...(devDependencies ? { devDependencies } : {}),
   }
