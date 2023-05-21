@@ -1,10 +1,11 @@
 import { Command } from 'commander'
+
+import { addESLintConfig } from './cmd/add-eslint-config'
+import { addNextApp } from './cmd/add-next-app'
 import { addPrettierConfig } from './cmd/add-prettier-config'
 import { addTailwindConfig } from './cmd/add-tailwind-config'
 import { addTSConfig } from './cmd/add-tsconfig'
 import { createCKApp } from './cmd/create-ck-app'
-import { addNextApp } from './cmd/add-next-app'
-import { addESLintConfig } from './cmd/add-eslint-config'
 
 const program = new Command()
 

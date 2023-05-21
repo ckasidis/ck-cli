@@ -1,8 +1,10 @@
 'use client'
 
-import { readUserSchema } from '@WORKSPACE_NAME/db'
 import { useTransition } from 'react'
 import { z } from 'zod'
+
+import { readUserSchema } from '@WORKSPACE_NAME/db'
+
 import { deleteUserAction } from '@/app/_actions'
 
 interface UserCardProps {

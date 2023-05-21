@@ -1,4 +1,5 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+
 import { NavItem, NavItemProps } from '@/components/NavItem'
 
 const navItems: NavItemProps[] = [

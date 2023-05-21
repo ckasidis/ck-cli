@@ -1,7 +1,8 @@
-import fs from 'fs-extra'
 import path from 'path'
-import { NewPackageOptions, newPackage } from '../helpers/new-pkg'
+import fs from 'fs-extra'
+
 import { install } from '../helpers/install'
+import { newPackage } from '../helpers/new-pkg'
 
 export type AddPrettierConfigOptions = {
   dir: string
@@ -30,24 +31,32 @@ export const addPrettierConfig = ({
   const copyDest = resolvedPath
   fs.copySync(copySource, copyDest)
 
-  const baseOptions: NewPackageOptions = {
+  const prettierConfig = path.join(resolvedPath, 'index.js')
+  fs.writeFileSync(
+    prettierConfig,
+    fs
+      .readFileSync(prettierConfig, 'utf8')
+      .replace('WORKSPACE_NAME', workspaceName)
+  )
+
+  newPackage({
     dir: resolvedPath,
     pkgName: `@${workspaceName}/prettier-config`,
     main: './index.js',
-  }
+    scripts: {
+      clean: 'rimraf node_modules',
+    },
+  })
+
+  install(['rimraf', '@ianvs/prettier-plugin-sort-imports'], {
+    dir: resolvedPath,
+    devDependencies: true,
+  })
 
   if (withTailwind) {
-    newPackage({
-      ...baseOptions,
-      scripts: {
-        clean: 'rimraf node_modules',
-      },
-    })
-    install(['rimraf', 'prettier-plugin-tailwindcss'], {
+    install(['prettier-plugin-tailwindcss'], {
       dir: resolvedPath,
       devDependencies: true,
     })
-  } else {
-    newPackage(baseOptions)
   }
 }

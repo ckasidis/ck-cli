@@ -1,14 +1,15 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
+
 import {
   createUserSchema,
-  deleteUserSchema,
   db,
+  deleteUserSchema,
   eq,
   users,
 } from '@WORKSPACE_NAME/db'
-import { revalidatePath } from 'next/cache'
-import { z } from 'zod'
 
 export async function createUserAction(
   input: z.infer<typeof createUserSchema>

@@ -1,12 +1,13 @@
 import path from 'path'
+
+import { addDrizzle } from './add-drizzle'
+import { addESLintConfig } from './add-eslint-config'
+import { addNextApp } from './add-next-app'
+import { addPrettierConfig } from './add-prettier-config'
+import { addRootConfig } from './add-root-config'
+import { addTailwindConfig } from './add-tailwind-config'
 import { addTSConfig } from './add-tsconfig'
 import { addWorkspace } from './add-workspace'
-import { addPrettierConfig } from './add-prettier-config'
-import { addESLintConfig } from './add-eslint-config'
-import { addTailwindConfig } from './add-tailwind-config'
-import { addRootConfig } from './add-root-config'
-import { addNextApp } from './add-next-app'
-import { addDrizzle } from './add-drizzle'
 
 export type CreateCKAppOptions = {
   dir: string

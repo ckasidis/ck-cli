@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
+
 import { Header } from '@/components/Header'
 
 export const metadata = {

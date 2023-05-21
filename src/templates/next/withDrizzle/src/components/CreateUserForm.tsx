@@ -1,10 +1,12 @@
 'use client'
 
-import { createUserSchema } from '@WORKSPACE_NAME/db'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useTransition } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+
+import { createUserSchema } from '@WORKSPACE_NAME/db'
+
 import { createUserAction } from '@/app/_actions'
 
 type CreateUserInput = z.infer<typeof createUserSchema>

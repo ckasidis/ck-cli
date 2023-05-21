@@ -1,6 +1,6 @@
 import { spawnSync } from 'child_process'
-import fs from 'fs-extra'
 import path from 'path'
+import fs from 'fs-extra'
 
 export type InstallOptions = {
   dir: string

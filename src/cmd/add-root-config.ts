@@ -1,9 +1,10 @@
-import fs from 'fs-extra'
 import path from 'path'
-import { newPackage } from '../helpers/new-pkg'
-import { install } from '../helpers/install'
-import { huskyInit } from '../helpers/husky-init'
+import fs from 'fs-extra'
+
 import { gitInit } from '../helpers/git-init'
+import { huskyInit } from '../helpers/husky-init'
+import { install } from '../helpers/install'
+import { newPackage } from '../helpers/new-pkg'
 
 export type AddRootConfigOptions = {
   dir: string

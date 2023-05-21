@@ -1,5 +1,6 @@
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod'
+
 import { users } from './schema'
 
 const selectUserSchema = createSelectSchema(users)
